@@ -383,55 +383,101 @@ public class Solutions {
     }
 
     public long q23(String[] arr, int count) {
-        Map<String, Integer> valueVsCount =  new HashMap<>();
+        Map<String, Integer> valueVsCount = new HashMap<>();
 
         for (int i = 0; i < arr.length; i++) {
             Integer integer = Optional.ofNullable(valueVsCount.get(arr[i]))
                     .orElse(0);
-            valueVsCount.put(arr[i], integer+1);
+            valueVsCount.put(arr[i], integer + 1);
         }
 
         return valueVsCount.entrySet()
                 .stream()
-                .filter(value-> value.getValue().equals(count))
+                .filter(value -> value.getValue().equals(count))
                 .count();
     }
 
     /**
-     *
      * Example:
-     *    {-7, 1, 5, 2, -4, 3, 0}
-     *
-     *   -7   -6  -1   1  -3  0   0
-     *    -10  -3  -4   1  -1  3   0
-     *
-     *
-     *   -16  -9  -3  -2  -3  0   0
-     *
-     *   [1,7,3,6,5,6]
-     *   28
-     *
-     *   27, 1
-     *   20, 8
-     *   17, 11
-     *   11,
-     *
-     *
-     *
-
-
+     * {-7, 1, 5, 2, -4, 3, 0}
+     * <p>
+     * -7   -6  -1   1  -3  0   0
+     * -10  -3  -4   1  -1  3   0
+     * <p>
+     * <p>
+     * -16  -9  -3  -2  -3  0   0
+     * <p>
+     * [1,7,3,6,5,6]
+     * 28
+     * <p>
+     * 27, 1
+     * 20, 8
+     * 17, 11
+     * 11,
      */
     public int q24(Integer[] arr) {
         int i = 0;
-        Integer  temp2 = 0;
+        Integer temp2 = 0;
         int sum = Stream.of(arr).mapToInt(Integer::intValue).sum();
-        while(i < arr.length) {
+        while (i < arr.length) {
             sum = sum - arr[i];
             if (Math.abs(sum) == Math.abs(temp2.intValue())) {
                 return i;
             }
             temp2 = temp2 + arr[i];
             i++;
+        }
+        return -1;
+    }
+
+    // * Input : {1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1, 0, 0, 1}
+    public int q25(Integer[] arr) {
+        int maxDistanceSoFar = 0, maxDistanceNow = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i].equals(1)) {
+                if (maxDistanceNow != 0) {
+                    if (maxDistanceSoFar < maxDistanceNow) {
+                        maxDistanceSoFar = maxDistanceNow;
+                    }
+                    maxDistanceNow = 0;
+                }
+            } else {
+                maxDistanceNow++;
+            }
+        }
+        return maxDistanceSoFar - 1;
+    }
+
+    // {1, 3, 5, 5, 5, 5, 67, 123, 125};
+    public int[] q26(int[] arr, int i) {
+        int startingIndex = findStartingIndexOfNumber(arr, i, 0, arr.length - 1);
+        int startingIndexEnd = findStartingIndexOfNumberEnd(arr, i, 0, arr.length - 1);
+        System.out.println(startingIndex);
+        System.out.println(startingIndexEnd);
+        return new int[]{startingIndex, startingIndexEnd};
+    }
+
+    private int findStartingIndexOfNumber(int[] arr, int i, int start, int end) {
+        int middle = (start + end) / 2;
+        if (middle < end) {
+            if (arr[middle] != i && arr[middle + 1] == i) {
+                return middle + 1;
+            }
+            if (arr[middle] <= i) return findStartingIndexOfNumber(arr, i, start, middle);
+            else return findStartingIndexOfNumber(arr, i, middle + 1, end);
+
+        }
+        return -1;
+    }
+
+    private int findStartingIndexOfNumberEnd(int[] arr, int i, int start, int end) {
+        int middle = (start + end) / 2;
+        if (middle < end) {
+            if (arr[middle] == i && arr[middle + 1] != i) {
+                return middle ;
+            }
+            if (arr[middle] <= i) return findStartingIndexOfNumberEnd(arr, i, middle + 1, end);
+            else return findStartingIndexOfNumberEnd(arr, i, start, middle);
         }
         return -1;
     }

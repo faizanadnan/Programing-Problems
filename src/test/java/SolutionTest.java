@@ -385,7 +385,7 @@ public class SolutionTest {
 
     /**
      * Count number of bits to be flipped to convert A to B
-     *
+     * <p>
      * Last Updated : 23 Apr, 2020
      * Given two numbers ‘a’ and b’. Write a program to count number of bits needed to be flipped to convert ‘a’ to ‘b’.
      * Example :
@@ -406,32 +406,31 @@ public class SolutionTest {
      */
     @Test
     public void q18() {
-        Assertions.assertEquals(4, solutions.q18(10,20));
+        Assertions.assertEquals(4, solutions.q18(10, 20));
     }
 
     /**
      * Count number of occurrences (or frequency) in a sorted array
      * Difficulty Level : Medium
-     *  Last Updated : 10 Sep, 2018
+     * Last Updated : 10 Sep, 2018
      * Given a sorted array arr[] and a number x, write a function that counts the occurrences of x in arr[]. Expected time complexity is O(Logn)
      * Examples:
-     *
-     *   Input: arr[] = {1, 1, 2, 2, 2, 2, 3,},   x = 2
-     *   Output: 4 // x (or 2) occurs 4 times in arr[]
-     *
-     *   Input: arr[] = {1, 1, 2, 2, 2, 2, 3,},   x = 3
-     *   Output: 1
-     *
-     *   Input: arr[] = {1, 1, 2, 2, 2, 2, 3,},   x = 1
-     *   Output: 2
-     *
-     *   Input: arr[] = {1, 1, 2, 2, 2, 2, 3,},   x = 4
-     *   Output: -1 // 4 doesn't occur in arr[]
-     *
+     * <p>
+     * Input: arr[] = {1, 1, 2, 2, 2, 2, 3,},   x = 2
+     * Output: 4 // x (or 2) occurs 4 times in arr[]
+     * <p>
+     * Input: arr[] = {1, 1, 2, 2, 2, 2, 3,},   x = 3
+     * Output: 1
+     * <p>
+     * Input: arr[] = {1, 1, 2, 2, 2, 2, 3,},   x = 1
+     * Output: 2
+     * <p>
+     * Input: arr[] = {1, 1, 2, 2, 2, 2, 3,},   x = 4
+     * Output: -1 // 4 doesn't occur in arr[]
      */
     @Test
     public void q19() {
-        int arr[] = {1,1, 2, 2, 2, 2,
+        int arr[] = {1, 1, 2, 2, 2, 2,
                 3, 4, 7, 8, 8};
         Assertions.assertEquals(4, solutions.q19(arr, 2));
     }
@@ -439,25 +438,25 @@ public class SolutionTest {
     /**
      * Count all possible groups of size 2 or 3 that have sum as multiple of 3
      * Difficulty Level : Medium
-     *  Last Updated : 19 Dec, 2018
+     * Last Updated : 19 Dec, 2018
      * Given an unsorted integer (positive values only) array of size ‘n’, we can form a group of two or three, the group should be such that the sum of all elements in that group is a multiple of 3. Count all possible number of groups that can be generated in this way.
      * Examples:
-     *
+     * <p>
      * Input: arr[] = {3, 6, 7, 2, 9}
      * Output: 8
      * // Groups are {3,6}, {3,9}, {9,6}, {7,2}, {3,6,9},
      * //            {3,7,2}, {7,2,6}, {7,2,9}
-     *
-     *
+     * <p>
+     * <p>
      * Input: arr[] = {2, 1, 3, 4}
      * Output: 4
      * // Groups are {2,1}, {2,4}, {2,1,3}, {2,4,3}
-     *
+     * <p>
      * Will solve with combination
      */
     @Test
     public void q20() {
-        int arr[] = {1,1, 2, 2, 2, 2,
+        int arr[] = {1, 1, 2, 2, 2, 2,
                 3, 4, 7, 8, 8};
         Assertions.assertEquals(4, solutions.q20(arr, 2));
     }
@@ -465,17 +464,17 @@ public class SolutionTest {
     /**
      * Count all possible paths from top left to bottom right of a mXn matrix
      * Difficulty Level : Medium
-     *  Last Updated : 28 Aug, 2020
+     * Last Updated : 28 Aug, 2020
      * The problem is to count all the possible paths from top left to bottom right of a mXn matrix with the constraints that from each cell you can either move only to right or down
-     *
+     * <p>
      * Examples :
-     *
+     * <p>
      * Input :  m = 2, n = 2;
      * Output : 2
      * There are two paths
      * (0, 0) -> (0, 1) -> (1, 1)
      * (0, 0) -> (1, 0) -> (1, 1)
-     *
+     * <p>
      * Input :  m = 2, n = 3;
      * Output : 3
      * There are three paths
@@ -485,52 +484,51 @@ public class SolutionTest {
      */
     @Test
     public void q21() {
-        Assertions.assertEquals(3,solutions.q21(1, 1, 2, 3));
-        Assertions.assertEquals(3,solutions.q211(2, 3));
+        Assertions.assertEquals(3, solutions.q21(1, 1, 2, 3));
+        Assertions.assertEquals(3, solutions.q211(2, 3));
 
     }
 
     /**
      * Given an array of distinct integers and a sum value. Find count of triplets with sum smaller than given sum value.
      * Expected Time Complexity is O(n2).
-     *
+     * <p>
      * Examples:
-     *
+     * <p>
      * Input : arr[] = {-2, 0, 1, 3}
-     *         sum = 2.
+     * sum = 2.
      * Output : 2
      * Explanation :  Below are triplets with sum less than 2
-     *                (-2, 0, 1) and (-2, 0, 3)
-     *
+     * (-2, 0, 1) and (-2, 0, 3)
+     * <p>
      * Input : arr[] = {5, 1, 3, 4, 7}
-     *         sum = 12.
+     * sum = 12.
      * Output : 4
      * Explanation :  Below are triplets with sum less than 12
-     *                (1, 3, 4), (1, 3, 5), (1, 3, 7) and
-     *                (1, 4, 5)
+     * (1, 3, 4), (1, 3, 5), (1, 3, 7) and
+     * (1, 4, 5)
      */
     @Test
     public void q22() {
         Integer arr[] = {5, 1, 3, 4, 7};
-        Assertions.assertEquals(4,solutions.q22(arr, 12));
+        Assertions.assertEquals(4, solutions.q22(arr, 12));
     }
 
     /**
-     *
      * Count words that appear exactly two times in an array of words
      * Difficulty Level : Easy
-     *  Last Updated : 06 Nov, 2020
+     * Last Updated : 06 Nov, 2020
      * Given an array of n words. Some words are repeated twice, we need count such words.
      * Examples:
-     *
+     * <p>
      * Input : s[] = {"hate", "love", "peace", "love",
-     *                "peace", "hate", "love", "peace",
-     *                "love", "peace"};
+     * "peace", "hate", "love", "peace",
+     * "love", "peace"};
      * Output : 1
      * There is only one word "hate" that appears twice
-     *
+     * <p>
      * Input : s[] = {"Om", "Om", "Shankar", "Tripathi",
-     *                 "Tom", "Jerry", "Jerry"};
+     * "Tom", "Jerry", "Jerry"};
      * Output : 2
      * There are two words "Om" and "Jerry" that appear
      * twice.
@@ -541,7 +539,7 @@ public class SolutionTest {
         String arr[] = {"hate", "love", "peace", "love",
                 "peace", "hate", "love", "peace",
                 "love", "peace"};
-        Assertions.assertEquals(1,solutions.q23(arr, 2));
+        Assertions.assertEquals(1, solutions.q23(arr, 2));
     }
 
 
@@ -549,23 +547,72 @@ public class SolutionTest {
      * Equilibrium index of an array is an index such that the sum of elements
      * at lower indexes is equal to the sum of elements at higher indexes.
      * For example, in an array A:
-     *
+     * <p>
      * Example :
-     *
+     * <p>
      * Input: A[] = {-7, 1, 5, 2, -4, 3, 0}
      * Output: 3
      * 3 is an equilibrium index, because:
      * A[0] + A[1] + A[2] = A[4] + A[5] + A[6]
-     *
+     * <p>
      * Input: A[] = {1, 2, 3}
      * Output: -1
-     *
      */
     @Test
     public void q24() {
         Integer arr[] = {-7, 1, 5, 2, -4, 3, 0};
         Assertions.assertEquals(3, solutions.q24(arr));
-        Assertions.assertEquals(3, solutions.q24(new Integer[]{1,7,3,6,5,6}));
+        Assertions.assertEquals(3, solutions.q24(new Integer[]{1, 7, 3, 6, 5, 6}));
+    }
+
+    /**
+     * Input : arr[] = {1, 0, 1, 0, 0, 1, 0, 1,
+     *                      1, 0, 1, 1, 0, 0, 1}
+     *
+     * maxDistSoFar 0 -1, 2
+     * maxDistNow 0 - 1,0, 1, 2
+     *                      solution
+     * Output : 1
+     * To convert the whole array into 1s, one iteration
+     * is required. Between indexes i=2 and i=5, the zero
+     * at i=3 would be converted to '1' due to its neighbours
+     * at i=2 similarly the zero at i=4 would be converted
+     * into '1' due to its neighbor at i=5, all this can
+     * be done in a single iteration. Similarly all 0's can
+     * be converted to 1 in single iteration.
+     *
+     * Input : arr[] = {0, 0, 1, 1, 0, 0, 1, 1, 0,
+     *                     1, 1, 1, 1, 0, 0, 0, 1}
+     * Output : 2
+     */
+    @Test
+    public void q25() {
+        Integer  arr[] = {1, 0, 1, 0, 0, 1, 0, 1,
+                1, 0, 1, 1, 0, 0, 1};
+        Assertions.assertEquals(1, solutions.q25(arr));
+    }
+
+    /**
+     * Find first and last positions of an element in a sorted array
+     * Difficulty Level : Easy
+     *  Last Updated : 28 Dec, 2020
+     * Given a sorted array with possibly duplicate elements, the task is to find indexes of first and last occurrences of an element x in the given array.
+     * Examples:
+     *
+     * Input : arr[] = {1, 3, 5, 5, 5, 5, 67, 123, 125}
+     *         x = 5
+     * Output : First Occurrence = 2
+     *          Last Occurrence = 5
+     *
+     * Input : arr[] = {1, 3, 5, 5, 5, 5, 7, 123, 125 }
+     *         x = 7
+     * Output : First Occurrence = 6
+     *          Last Occurrence = 6
+     */
+    @Test
+    public void q26() {
+        int  arr[] = {1, 3, 5, 5, 5, 5, 67, 123, 125};
+        Assertions.assertArrayEquals(new int[]{2, 5}, solutions.q26(arr, 5));
     }
 
 
