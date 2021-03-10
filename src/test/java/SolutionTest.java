@@ -615,5 +615,42 @@ public class SolutionTest {
         Assertions.assertArrayEquals(new int[]{2, 5}, solutions.q26(arr, 5));
     }
 
+    /**
+     *
+     * iven an array of integers, find all combination of four elements in the
+     * array whose sum is equal to a given value X.
+     * For example, if the given array is {10, 2, 3, 4, 5, 9, 7, 8} and
+     * X = 23, then your function should print “3 5 7 8” (3 + 5 + 7 + 8 = 23).
+     */
+
+    @Test
+    public void q27() {
+        Integer arr[] = {10, 20, 30, 40, 1, 2};
+        int X = 91;
+       solutions.q27(arr, X);
+    }
+
+    /**
+     * Given a sorted array consisting 0’s and 1’s. The problem is to find
+     * the index of first ‘1’ in the sorted array. It could be possible that the array consists of only 0’s or only 1’s. If 1’s are not present in the array then print “-1”.
+     *
+     * Examples :
+     *
+     * Input : arr[] = {0, 0, 0, 0, 0, 0, 1, 1, 1, 1}
+     * Output : 6
+     * The index of first 1 in the array is 6.
+     *
+     * Input : arr[] = {0, 0, 0, 0}
+     * Output : -1
+     * 1's are not present in the array.
+     */
+    @Test
+    public void q28() {
+        int arr[] = {0, 0, 0, 0, 0, 0, 1, 1, 1, 1};
+        Assertions.assertEquals(6,solutions.q28(arr));
+    }
+
+
+
 
 }

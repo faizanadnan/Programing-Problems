@@ -474,11 +474,48 @@ public class Solutions {
         int middle = (start + end) / 2;
         if (middle < end) {
             if (arr[middle] == i && arr[middle + 1] != i) {
-                return middle ;
+                return middle;
             }
             if (arr[middle] <= i) return findStartingIndexOfNumberEnd(arr, i, middle + 1, end);
             else return findStartingIndexOfNumberEnd(arr, i, start, middle);
         }
         return -1;
     }
+
+    public void q27(Integer[] arr, int x) {
+        Integer[] integers = new Integer[4];
+        combinationsTOFindSum(arr, 4, 0, integers, x);
+    }
+
+    static void combinationsTOFindSum(Integer[] arr, int len, int startPosition, Integer[] result, int x) {
+        if (len == 0) {
+            int sum = Arrays.stream(result).mapToInt(value -> value.intValue()).sum();
+            if (sum == x) {
+                Arrays.stream(result).forEach(System.out::println);
+            }
+            return;
+        }
+        for (int i = startPosition; i <= arr.length - len; i++) {
+            result[result.length - len] = arr[i];
+            combinationsTOFindSum(arr, len - 1, i + 1, result, x);
+        }
+    }
+
+    public int q28(int[] arr) {
+        return findStartingIndexOfOne(arr, 1, 0, arr.length - 1);
+    }
+
+    private int findStartingIndexOfOne(int[] arr, int i, int start, int end) {
+        int middle = (start + end) / 2;
+        if (middle < end) {
+            if (arr[middle] != i && arr[middle + 1] == i) {
+                return middle + 1;
+            }
+            if (arr[middle] != 0) return findStartingIndexOfNumber(arr, i, start, middle);
+            else return findStartingIndexOfNumber(arr, i, middle + 1, end);
+
+        }
+        return -1;
+    }
+
 }
