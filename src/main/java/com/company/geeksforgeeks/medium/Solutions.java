@@ -4,9 +4,12 @@ import com.company.geeksforgeeks.utility.BinaryTree;
 import com.company.geeksforgeeks.utility.CommonUtility;
 import com.company.geeksforgeeks.utility.Node;
 import com.company.geeksforgeeks.utility.Point;
+import com.google.common.math.IntMath;
+import org.apache.commons.lang3.ObjectUtils;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class Solutions {
@@ -518,4 +521,227 @@ public class Solutions {
         return -1;
     }
 
+    public int q38(int[] arr) {
+        int temp = 0;
+        for (int i = 0; i < arr.length; i++) {
+            temp = temp ^ arr[i];
+        }
+        return temp;
+    }
+
+    public int[] q39(int givenSum) {
+        for (int i = 0; i < givenSum; i++) {
+            if (IntMath.isPrime(i)) {
+                int anotherNumber = givenSum - i;
+                if (IntMath.isPrime(anotherNumber)) {
+                    return new int[]{i, anotherNumber};
+                }
+            }
+        }
+        return new int[0];
+    }
+
+
+    public long maximiseRevenue(List<Long> pickup, List<Long> drop, List<Integer> tip) {
+        // Write your code here
+
+        Stack<Integer> index = new Stack<>();
+
+        for (int i = 0; i < pickup.size(); i++) {
+            if (index.isEmpty()) {
+                index.push(i);
+            } else {
+                Integer peek = index.peek();
+                Long dropValue = drop.get(peek);
+                if (pickup.get(i) < dropValue) {
+                    Long previous = drop.get(peek) - pickup.get(peek) + tip.get(peek);
+                    Long current = drop.get(i) - pickup.get(i) + tip.get(i);
+                    if (previous < current) {
+                        index.pop();
+                        index.push(i);
+                    }
+
+                } else {
+                    index.push(i);
+                }
+            }
+        }
+
+        Long total = 0L;
+        while (!index.isEmpty()) {
+            Integer pop = index.pop();
+            total += drop.get(pop) - pickup.get(pop) + tip.get(pop);
+        }
+        return total;
+    }
+
+
+    Stack<Node> nodes = new Stack<>();
+
+    public void printPaths(Node root) {
+        if (root == null) {
+            return;
+        }
+        nodes.add(root);
+
+        if (root.left == null && root.right == null) {
+            Iterator<Node> nodeIterator = nodes.elements().asIterator();
+            while (nodeIterator.hasNext()) {
+                Node next = nodeIterator.next();
+                System.out.print(String.format("%s ", next.data));
+            }
+            nodes.pop();
+            System.out.println();
+        } else {
+            printPaths(root.left);
+            printPaths(root.right);
+            nodes.pop();
+        }
+    }
+
+    public int q41(int[] arr) {
+        int maxSumSorFar = 0;
+        int maxSumTillNow = 0;
+        for (int i = 0; i < arr.length; i++) {
+            maxSumTillNow = maxSumTillNow + arr[i];
+            if (maxSumSorFar < maxSumTillNow) maxSumSorFar = maxSumTillNow;
+        }
+        return maxSumSorFar;
+    }
+
+    public Integer[] q42(int[] arr) {
+        int last = arr.length - 1;
+
+        for (int i = 0; i < arr.length - 1 && i < last; ) {
+            if (arr[i] > 0) {
+                boolean b = arr[i + 1] < 0;
+                if (!b) {
+                    if (arr[last] < 0) {
+                        CommonUtility.swap(arr, i + 1, last);
+                    }
+                    last--;
+                } else {
+                    i++;
+                }
+            } else {
+                boolean b = arr[i + 1] > 0;
+                if (!b) {
+                    if (arr[last] > 0) {
+                        CommonUtility.swap(arr, i + 1, last);
+                    }
+                    last--;
+                } else {
+                    i++;
+                }
+            }
+        }
+        Arrays.stream(arr).boxed().forEach(System.out::println);
+        return null;
+    }
+
+    public int[] q56(int[] arr, int k) {
+        for (int i = 0; i < k; i++, k--) {
+            int temp = arr[i];
+            arr[i] = arr[k - 1];
+            arr[k - 1] = temp;
+        }
+        return arr;
+    }
+
+    // wwwwaaadexxxxxx
+    public String q57(String inputString) {
+        char lastVisited = '\n';
+        String finalString = "";
+        int count = 1, i = 0;
+        do {
+            char c = inputString.charAt(i);
+            if (lastVisited == c) {
+                count++;
+                i++;
+            } else if (lastVisited != '\n') {
+                finalString = finalString + lastVisited + count;
+                count = 1;
+                lastVisited = '\n';
+            } else {
+                lastVisited = c;
+                i++;
+            }
+        } while (inputString.length() > i);
+        finalString = finalString + lastVisited + count;
+        return finalString;
+    }
+
+
+    public int countConnections(List<List<Integer>> matrix) {
+        Set<String> validPairs = new HashSet<>();
+        Set<String> visited = new HashSet<>();
+        Point initial = new Point(0, 0);
+        Stack<Point> stack = new Stack<>();
+        stack.push(initial);
+
+        int[] x = {-1, -1, -1, 0, 1, 1, 1, 0};
+        int[] y = {-1, 0, 1, 1, 1, 0, -1, -1};
+
+        while (!stack.isEmpty()) {
+            Point pop = stack.pop();
+            visited.add(pop.x + "" + pop.y);
+
+            for (int i = 0; i < x.length; i++) {
+                if (isValidIndex(pop.x + x[i], pop.y + y[i], matrix)
+                        && matrix.get(pop.x + x[i]).get(pop.y + y[i]) == 1) {
+
+                    String s = String.format("%d%d%d%d", pop.x, pop.y, pop.x + x[i], pop.y + y[i]);
+
+                    if (!visited.contains((pop.x + x[i]) + "" + (pop.y + y[i])) && !validPairs.contains(s)) {
+                        validPairs.add(s);
+                        stack.push(new Point(pop.x + x[i], pop.y + y[i]));
+                    }
+                }
+            }
+        }
+        return validPairs.size();
+    }
+
+
+    boolean isValidIndex(int r, int c, List<List<Integer>> matrix) {
+        int row = matrix.size();
+        int col = matrix.get(0)
+                .size();
+        return (r < row && c < col) && (r >= 0 && c >= 0);
+    }
+
+
+    public int tilingProblem1(int size) {
+        if (size == 0) return 0;
+        if (size == 1) return 1;
+
+        return tilingProblem(size - 1) + tilingProblem( size - 2);
+    }
+
+    public int tilingProblem(int size) {
+        if (size == 0) return 0;
+        if (size == 1) return 1;
+
+        return tilingProblem(size - 1) + tilingProblem( size - 2);
+    }
+
+    public int heightOfTree(Node root) {
+        int count = 0;
+        Queue<Node> q = new LinkedList<>();
+        q.add(null);
+        q.add(root);
+
+        while (!q.isEmpty()) {
+            Node pop = q.poll();
+            if (Objects.isNull(pop)) continue;
+            Node peek = q.peek();
+            Optional.ofNullable(pop.left).ifPresent(value-> q.add(value));
+            Optional.ofNullable(pop.right).ifPresent(value-> q.add(value));
+            if (peek  == null) {
+                count++;
+                q.add(q.poll());
+            }
+        }
+        return count - 1;
+    }
 }

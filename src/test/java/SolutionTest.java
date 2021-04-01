@@ -4,8 +4,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.Stack;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.BDDMockito.given;
 
 public class SolutionTest {
 
@@ -307,7 +311,9 @@ public class SolutionTest {
         tree.root = new Node(26);
         tree.root.left = new Node(10);
         tree.root.right = new Node(3);
+
         tree.root.left.left = new Node(4);
+
         tree.root.left.right = new Node(6);
         tree.root.right.right = new Node(3);
         Assertions.assertTrue(solutions.q15(tree));
@@ -567,11 +573,11 @@ public class SolutionTest {
 
     /**
      * Input : arr[] = {1, 0, 1, 0, 0, 1, 0, 1,
-     *                      1, 0, 1, 1, 0, 0, 1}
-     *
+     * 1, 0, 1, 1, 0, 0, 1}
+     * <p>
      * maxDistSoFar 0 -1, 2
      * maxDistNow 0 - 1,0, 1, 2
-     *                      solution
+     * solution
      * Output : 1
      * To convert the whole array into 1s, one iteration
      * is required. Between indexes i=2 and i=5, the zero
@@ -580,14 +586,14 @@ public class SolutionTest {
      * into '1' due to its neighbor at i=5, all this can
      * be done in a single iteration. Similarly all 0's can
      * be converted to 1 in single iteration.
-     *
+     * <p>
      * Input : arr[] = {0, 0, 1, 1, 0, 0, 1, 1, 0,
-     *                     1, 1, 1, 1, 0, 0, 0, 1}
+     * 1, 1, 1, 1, 0, 0, 0, 1}
      * Output : 2
      */
     @Test
     public void q25() {
-        Integer  arr[] = {1, 0, 1, 0, 0, 1, 0, 1,
+        Integer arr[] = {1, 0, 1, 0, 0, 1, 0, 1,
                 1, 0, 1, 1, 0, 0, 1};
         Assertions.assertEquals(1, solutions.q25(arr));
     }
@@ -595,28 +601,27 @@ public class SolutionTest {
     /**
      * Find first and last positions of an element in a sorted array
      * Difficulty Level : Easy
-     *  Last Updated : 28 Dec, 2020
+     * Last Updated : 28 Dec, 2020
      * Given a sorted array with possibly duplicate elements, the task is to find indexes of first and last occurrences of an element x in the given array.
      * Examples:
-     *
+     * <p>
      * Input : arr[] = {1, 3, 5, 5, 5, 5, 67, 123, 125}
-     *         x = 5
+     * x = 5
      * Output : First Occurrence = 2
-     *          Last Occurrence = 5
-     *
+     * Last Occurrence = 5
+     * <p>
      * Input : arr[] = {1, 3, 5, 5, 5, 5, 7, 123, 125 }
-     *         x = 7
+     * x = 7
      * Output : First Occurrence = 6
-     *          Last Occurrence = 6
+     * Last Occurrence = 6
      */
     @Test
     public void q26() {
-        int  arr[] = {1, 3, 5, 5, 5, 5, 67, 123, 125};
+        int arr[] = {1, 3, 5, 5, 5, 5, 67, 123, 125};
         Assertions.assertArrayEquals(new int[]{2, 5}, solutions.q26(arr, 5));
     }
 
     /**
-     *
      * iven an array of integers, find all combination of four elements in the
      * array whose sum is equal to a given value X.
      * For example, if the given array is {10, 2, 3, 4, 5, 9, 7, 8} and
@@ -627,19 +632,19 @@ public class SolutionTest {
     public void q27() {
         Integer arr[] = {10, 20, 30, 40, 1, 2};
         int X = 91;
-       solutions.q27(arr, X);
+        solutions.q27(arr, X);
     }
 
     /**
      * Given a sorted array consisting 0’s and 1’s. The problem is to find
      * the index of first ‘1’ in the sorted array. It could be possible that the array consists of only 0’s or only 1’s. If 1’s are not present in the array then print “-1”.
-     *
+     * <p>
      * Examples :
-     *
+     * <p>
      * Input : arr[] = {0, 0, 0, 0, 0, 0, 1, 1, 1, 1}
      * Output : 6
      * The index of first 1 in the array is 6.
-     *
+     * <p>
      * Input : arr[] = {0, 0, 0, 0}
      * Output : -1
      * 1's are not present in the array.
@@ -647,10 +652,226 @@ public class SolutionTest {
     @Test
     public void q28() {
         int arr[] = {0, 0, 0, 0, 0, 0, 1, 1, 1, 1};
-        Assertions.assertEquals(6,solutions.q28(arr));
+        Assertions.assertEquals(6, solutions.q28(arr));
+    }
+
+    /**
+     * Find the Number Occurring Odd Number of Times
+     * Difficulty Level : Easy
+     * Last Updated : 09 Mar, 2021
+     * Given an array of positive integers. All numbers occur even number of times except one number which occurs odd number of times. Find the number in O(n) time & constant space.
+     * Examples :
+     * <p>
+     * Input : arr = {1, 2, 3, 2, 3, 1, 3}
+     * Output : 3
+     * <p>
+     * Input : arr = {5, 7, 2, 7, 5, 2, 5}
+     * Output : 5
+     */
+    @Test
+    public void q38() {
+        int arr[] = {1, 2, 3, 2, 3, 1, 3};
+        Assertions.assertEquals(3, solutions.q38(arr));
+    }
+
+    /**
+     * Find two prime numbers with given sum
+     * Difficulty Level : Medium
+     * Last Updated : 18 Apr, 2019
+     * Given an even number (greater than 2 ), print two prime numbers whose sum will be equal to given number. There may be several combinations possible. Print only first such pair.
+     * <p>
+     * An interesting point is, a solution always exist according to Goldbach’s conjecture.
+     * <p>
+     * Examples :
+     * <p>
+     * Input: n = 74
+     * Output: 3 71
+     * <p>
+     * Input : n = 1024
+     * Output: 3 1021
+     * <p>
+     * Input: n = 66
+     * Output: 5 61
+     * <p>
+     * Input: n = 9990
+     * Output: 17 9973
+     */
+    @Test
+    public void q39() {
+        Assertions.assertArrayEquals(new int[]{3, 71}, solutions.q39(74));
     }
 
 
+    @Test
+    public void q40() {
+        BinaryTree tree = new BinaryTree();
+        tree.root = new Node(10);
+        tree.root.left = new Node(8);
+        tree.root.right = new Node(2);
+        tree.root.left.left = new Node(3);
+        tree.root.left.right = new Node(5);
+        tree.root.right.left = new Node(2);
+        solutions.printPaths(tree.root);
+    }
+
+    /**
+     * Maximum sum such that no two elements are adjacent
+     * Difficulty Level : Medium
+     * Last Updated : 26 Jul, 2019
+     * Given an array of positive numbers, find the maximum sum of a subsequence with the constraint that no 2 numbers in the sequence should be adjacent in the array. So 3 2 7 10 should return 13 (sum of 3 and 10) or 3 2 5 10 7 should return 15 (sum of 3, 5 and 7).Answer the question in most efficient way.
+     * <p>
+     * Examples :
+     * <p>
+     * Input : arr[] = {5, 5, 10, 100, 10, 5}
+     * Output : 110
+     * <p>
+     * Input : arr[] = {1, 2, 3}
+     * Output : 4
+     * <p>
+     * Input : arr[] = {1, 20, 3}
+     * Output : 20
+     */
+    @Test
+    public void q41() {
+        int arr[] = new int[]{5, 5, 10, 100, 10, 5};
+        Assertions.assertEquals(110, solutions.q41(arr));
+    }
+
+    /**
+     * Rearrange positive and negative numbers in O(n) time and O(1) extra space
+     * Difficulty Level : Medium
+     * Last Updated : 09 Nov, 2020
+     * An array contains both positive and negative numbers in random order. Rearrange the array elements so
+     * that positive and negative numbers are placed alternatively. Number of positive and negative numbers
+     * need not be equal. If there are more positive numbers they appear at the end of the array. If there
+     * are more negative numbers, they too appear in the end of the array.
+     * <p>
+     * For example, if the input array is [-1, 2, -3, 4, 5, 6, -7, 8, 9], then the output should be
+     * [9, -7, 8, -3, 5, -1, 2, 4, 6]
+     * <p>
+     * Note: The partition process changes relative order of elements. I.e. the order of the appearance of
+     * elements is not maintained with this approach. See this for maintaining order of appearance of elements
+     * in this problem.
+     * <p>
+     * The solution is to first separate positive and negative numbers using partition process of QuickSort.
+     * In the partition process, consider 0 as value of pivot element so that all negative numbers are placed
+     * before positive numbers. Once negative and positive numbers are separated, we start from the first negative
+     * number and first positive number,
+     * and swap every alternate negative number with next positive number.
+     */
+    @Test
+    public void q42() {
+        int arr[] = {-1, 2, -3, 4, 5, 6, -7, 8, 9};
+        solutions.q42(arr)
+        ;
+
+    }
+
+    /**
+     * Reverse an array upto a given position
+     * Difficulty Level : Easy
+     * Last Updated : 14 Oct, 2019
+     * Given an array arr[] and a position in array, k. Write a function name reverse (a[], k)
+     * such that it reverses subarray arr[0..k-1]. Extra space used should be O(1) and
+     * time complexity should be O(k).
+     * <p>
+     * Example:
+     * <p>
+     * Input:
+     * arr[] = {1, 2, 3, 4, 5, 6}
+     * k = 4
+     * <p>
+     * Output:
+     * arr[] = {4, 3, 2, 1, 5, 6}
+     * We strongly recommend you to minimize your browser and try this yourself first.
+     * <p>
+     * Below is the implementation for the same.
+     */
+    @Test
+    public void q56() {
+        int arr[] = {1, 2, 3, 4, 5, 6};
+        int expected[] = {4, 3, 2, 1, 5, 6};
+        Assertions.assertArrayEquals(expected, solutions.q56(arr, 4));
+    }
+
+    @Test
+    public void q57() {
+        Assertions.assertEquals("w4a3d1e1x6", solutions.q57("wwwwaaadexxxxxx"));
+    }
+
+
+    @Test
+    public void testGS() {
+        List<List<Integer>> matrix = Arrays.asList(
+                Arrays.asList(1, 0, 0, 1),
+                Arrays.asList(0, 1, 1, 1),
+                Arrays.asList(1, 0, 0, 1)
+        );
+
+
+        int i = solutions.countConnections(matrix);
+        assertEquals(8, i);
+    }
+
+
+    /**
+     * Tiling Problem
+     * Difficulty Level : Easy
+     * Last Updated : 19 Dec, 2020
+     * Given a “2 x n” board and tiles of size “2 x 1”, count the number of ways to
+     * tile the given board using the 2 x 1 tiles. A tile can either be placed horizontally i.e.,
+     * as a 1 x 2 tile or vertically i.e., as 2 x 1 tile.
+     *
+     * Examples:
+     *
+     * Input: n = 4
+     *
+     * Output: 3
+     *
+     * Explanation:
+     *
+
+     * For a 2 x 4 board, there are 3 ways
+     *
+     * All 4 vertical
+     * All 4 horizontal
+     * 2 vertical and 2 horizontal
+     * Input: n = 3
+     *
+     * Output: 2
+     *
+     * Explanation:
+     *
+     * We need 2 tiles to tile the board of size  2 x 3.
+     *
+     * We can tile the board using following ways
+     *
+     * Place all 3 tiles vertically.
+     * Place 1 tile vertically and remaining 2 tiles horizontally.
+     */
+    @Test
+    public void tilingProblem() {
+
+        int i = solutions.tilingProblem(3);
+        assertEquals(2, i);
+    }
+
+    @Test
+    public void heightOfTree() {
+
+        BinaryTree tree = new BinaryTree();
+
+        tree.root = new Node(1);
+        tree.root.left = new Node(2);
+        tree.root.right = new Node(3);
+        tree.root.left.left = new Node(4);
+        tree.root.left.left.right = new Node(9);
+        tree.root.left.left.right.left = new Node(10);
+        tree.root.left.right = new Node(5);
+
+        int i = solutions.heightOfTree(tree.root);
+        assertEquals(4, i);
+    }
 
 
 }
